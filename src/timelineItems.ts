@@ -33,7 +33,7 @@ const timelineItems = [
     id: 6,
     start: '2021-02-18',
     end: '2021-02-24',
-    name: 'Proofread translations for lesson 1',
+    name: 'Proofread translations for lesson 1 2 3 4 5 6',
   },
   {
     id: 7,
@@ -94,24 +94,6 @@ const timelineItems = [
     start: '2021-05-01',
     end: '2021-05-01',
     name: 'Launch day',
-  },
-  {
-    id: 17,
-    start: '2021-06-01',
-    end: '2021-06-01',
-    name: 'Launch day2',
-  },
-  {
-    id: 18,
-    start: '2021-07-01',
-    end: '2021-07-01',
-    name: 'Launch day3',
-  },
-  {
-    id: 19,
-    start: '2021-08-01',
-    end: '2021-08-01',
-    name: 'Launch day4 Launch day4 Launch day4 Launch day4 Launch day4 Launch day4 dasdav sdsdasdasd sdasdasdsdas dasdsdasdasdsdasdasdsdasdasdsdasdasdsdasdasdsdasdasdsdasdasdsdasdasdsdasdasdsdasdasdsdasdasdsdasdasdsdasdasdsdasdasdsdasdasdsdasdasdsdasdasdsdasdasdsdasdasdsdasdasdsdasdasdsdasdasdsdasdasdsdasdasdsdasdasdsdasdasdsdasdasdsdasdasdsdasdasdsdasdasdsdasdasdsdasdasdsdasdasdsdasdasdsdasd asdsdasdasdsdasdasdsdasdasds dasdasdsdasdasdsdasdasdsdasdasdsdasdasdsdasdasds',
   },
 ];
 
