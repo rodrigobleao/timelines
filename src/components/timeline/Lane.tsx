@@ -1,13 +1,7 @@
 import React from 'react';
 import { calculateDays, calculateCardWidth, calculateOffset } from './utils';
 import TimelineCard from './timelineCard';
-
-interface TimelineItem {
-  id: number;
-  name: string;
-  start: string;
-  end: string;
-}
+import type { TimelineItem } from './types';
 
 interface LaneProps {
   lane: TimelineItem[];
