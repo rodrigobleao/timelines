@@ -15,33 +15,18 @@ interface LaneProps {
   onNameChange: (id: number, newName: string) => void;
 }
 
-const getAdjustedOffset = (
-  item: TimelineItem,
-  minDate: Date,
-  prevItem?: TimelineItem
-) => {
-  const baseOffset = calculateOffset(item.start, minDate);
-  if (!prevItem) return baseOffset;
-
-  const prevOffset = calculateOffset(prevItem.start, minDate);
-  const prevWidth = calculateCardWidth(
-    calculateDays(prevItem.start, prevItem.end)
-  );
-  const prevVisualEnd = prevOffset + prevWidth;
-
-  return Math.max(baseOffset, prevVisualEnd);
-};
-
 const Lane: React.FC<LaneProps> = ({ lane, minDate, onNameChange }) => {
+  let prevVisualEnd = 0;
+
   return (
     <div className="relative h-[120px]">
-      {lane.map((item, index) => {
+      {lane.map((item) => {
         const width = calculateCardWidth(calculateDays(item.start, item.end));
-        const adjustedOffset = getAdjustedOffset(
-          item,
-          minDate,
-          lane[index - 1]
-        );
+        const baseOffset = calculateOffset(item.start, minDate);
+
+        const adjustedOffset = Math.max(baseOffset, prevVisualEnd);
+
+        prevVisualEnd = adjustedOffset + width;
 
         return (
           <TimelineCard
