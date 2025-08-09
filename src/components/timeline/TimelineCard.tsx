@@ -1,14 +1,17 @@
 import React, { useState } from 'react';
+import { calculateDays } from './utils';
 
 interface TimelineCardProps {
+  id: number;
   name: string;
   start: string;
   end: string;
-  onNameChange?: (newName: string) => void;
+  onNameChange: (id: number, newName: string) => void;
   style?: React.CSSProperties;
 }
 
 const TimelineCard: React.FC<TimelineCardProps> = ({
+  id,
   name,
   start,
   end,
@@ -18,12 +21,16 @@ const TimelineCard: React.FC<TimelineCardProps> = ({
   const [isEditing, setIsEditing] = useState(false);
   const [currentName, setCurrentName] = useState(name);
 
+  const finishEditing = () => {
+    if (currentName.trim() !== name) {
+      onNameChange(id, currentName.trim());
+    }
+    setIsEditing(false);
+  };
+
   const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter') {
-      if (onNameChange) {
-        onNameChange(currentName);
-      }
-      setIsEditing(false);
+      finishEditing();
     }
   };
 
@@ -39,25 +46,20 @@ const TimelineCard: React.FC<TimelineCardProps> = ({
             type="text"
             value={currentName}
             onChange={(e) => setCurrentName(e.target.value)}
-            onBlur={() => {
-              if (onNameChange) {
-                onNameChange(currentName);
-              }
-              setIsEditing(false);
-            }}
+            onBlur={finishEditing}
             onKeyDown={handleKeyPress}
             className="w-full font-bold text-lg bg-gray-100 rounded px-2"
             autoFocus
           />
         ) : (
-          <h4 className="font-bold text-lg text-gray-800">{name}</h4>
+          <h4 className="font-bold text-lg text-gray-800">{currentName}</h4>
         )}
-        <p className="text-sm text-gray-600 mt-2">
+        <p className="text-sm text-gray-500">
           {start} to {end}
         </p>
-      </div>
-      <div className="text-right text-xs text-gray-400 mt-2">
-        Double-click to edit
+        <p className="text-xs text-gray-400 mt-1">
+          Duration: {calculateDays(start, end)} days
+        </p>
       </div>
     </div>
   );
