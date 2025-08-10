@@ -28,8 +28,9 @@ const TimelineCard: React.FC<TimelineCardProps> = ({
     setIsEditing(false);
   };
 
-  const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === 'Enter') {
+  const handleKeyPress = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
+    if (e.key === 'Enter' && !e.shiftKey) {
+      e.preventDefault();
       finishEditing();
     }
   };
@@ -42,17 +43,27 @@ const TimelineCard: React.FC<TimelineCardProps> = ({
     >
       <div>
         {isEditing ? (
-          <input
-            type="text"
+          <textarea
             value={currentName}
             onChange={(e) => setCurrentName(e.target.value)}
             onBlur={finishEditing}
             onKeyDown={handleKeyPress}
-            className="w-full font-bold text-lg bg-gray-100 rounded px-2"
+            rows={currentName.length > 30 ? 2 : 1}
+            className="w-full font-bold text-lg bg-gray-100 rounded resize-none overflow-hidden focus:outline-zinc-600"
             autoFocus
           />
         ) : (
-          <h4 className="font-bold text-lg text-gray-800">{currentName}</h4>
+          <h4
+            className="font-bold text-lg text-gray-800"
+            style={{
+              display: '-webkit-box',
+              WebkitBoxOrient: 'vertical',
+              overflow: 'hidden',
+              WebkitLineClamp: 2,
+            }}
+          >
+            {currentName}
+          </h4>
         )}
         <p className="text-sm text-gray-500">
           {start} to {end}
