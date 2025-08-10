@@ -3,8 +3,15 @@ import { useTimeline } from './useTimeLine';
 import timelineItemsData from './timelineItems';
 import Lane from './Lane';
 
-const Timeline: React.FC = () => {
-  const { lanes, minDate, handleNameChange } = useTimeline(timelineItemsData);
+interface TimelineProps {
+  zoom?: number;
+}
+
+const Timeline: React.FC<TimelineProps> = ({ zoom = 1 }) => {
+  const { lanes, minDate, handleNameChange } = useTimeline(
+    timelineItemsData,
+    zoom
+  );
 
   return (
     <div
@@ -18,6 +25,7 @@ const Timeline: React.FC = () => {
             lane={lane}
             minDate={minDate}
             onNameChange={handleNameChange}
+            zoom={zoom}
           />
         ))}
       </div>

@@ -1,22 +1,26 @@
 import React from 'react';
 import { calculateDays, calculateCardWidth, calculateOffset } from './utils';
-import TimelineCard from './timelineCard';
 import type { TimelineItem } from './types';
+import TimelineCard from './TimelineCard';
 
 interface LaneProps {
   lane: TimelineItem[];
   minDate: Date;
   onNameChange: (id: number, newName: string) => void;
+  zoom: number;
 }
 
-const Lane: React.FC<LaneProps> = ({ lane, minDate, onNameChange }) => {
+const Lane: React.FC<LaneProps> = ({ lane, minDate, onNameChange, zoom }) => {
   let prevVisualEnd = 0;
 
   return (
     <div className="relative h-[120px]">
       {lane.map((item) => {
-        const width = calculateCardWidth(calculateDays(item.start, item.end));
-        const baseOffset = calculateOffset(item.start, minDate);
+        const width = calculateCardWidth(
+          calculateDays(item.start, item.end),
+          zoom
+        );
+        const baseOffset = calculateOffset(item.start, minDate, zoom);
 
         const adjustedOffset = Math.max(baseOffset, prevVisualEnd);
 

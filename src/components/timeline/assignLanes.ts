@@ -3,7 +3,8 @@ import { calculateDays, calculateOffset, WIDTH_PER_DAY } from './utils';
 
 export default function assignLanes(
   items: TimelineItem[],
-  minDate: Date
+  minDate: Date,
+  zoom: number
 ): TimelineItem[][] {
   const sortedItems = items
     .slice()
@@ -15,7 +16,7 @@ export default function assignLanes(
   for (const item of sortedItems) {
     let placed = false;
 
-    const itemOffset = calculateOffset(item.start, minDate);
+    const itemOffset = calculateOffset(item.start, minDate, zoom);
     const days = calculateDays(item.start, item.end);
     const itemVisualEnd = itemOffset + days * WIDTH_PER_DAY;
 

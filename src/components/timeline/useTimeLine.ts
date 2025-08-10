@@ -2,7 +2,7 @@ import { useState, useMemo } from 'react';
 import assignLanes from './assignLanes';
 import type { TimelineItem } from './types';
 
-export const useTimeline = (initialItems: TimelineItem[]) => {
+export const useTimeline = (initialItems: TimelineItem[], zoom: number) => {
   const [items, setItems] = useState<TimelineItem[]>(initialItems);
 
   const minDate = useMemo(() => {
@@ -11,7 +11,10 @@ export const useTimeline = (initialItems: TimelineItem[]) => {
     );
   }, [items]);
 
-  const lanes = useMemo(() => assignLanes(items, minDate), [items, minDate]);
+  const lanes = useMemo(
+    () => assignLanes(items, minDate, zoom),
+    [items, minDate, zoom]
+  );
 
   const handleNameChange = (id: number, newName: string) => {
     setItems((prev) =>

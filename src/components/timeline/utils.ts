@@ -8,15 +8,21 @@ export function calculateDays(start: string, end: string): number {
   return (endDate.getTime() - startDate.getTime()) / MS_PER_DAY + 1;
 }
 
-export function calculateCardWidth(days: number): number {
-  const width = days * WIDTH_PER_DAY;
+export function calculateCardWidth(days: number, zoom: number): number {
+  const width = days * WIDTH_PER_DAY * zoom;
   return width < MIN_WIDTH ? MIN_WIDTH : width;
 }
 
-export function calculateOffset(start: string, minDate: Date): number {
+export function calculateOffset(
+  start: string,
+  minDate: Date,
+  zoom: number
+): number {
   const startDate = new Date(start);
   return (
-    ((startDate.getTime() - minDate.getTime()) / MS_PER_DAY) * WIDTH_PER_DAY
+    ((startDate.getTime() - minDate.getTime()) / MS_PER_DAY) *
+    WIDTH_PER_DAY *
+    zoom
   );
 }
 
