@@ -18,7 +18,7 @@ export default function assignLanes(
 
     const itemOffset = calculateOffset(item.start, minDate, zoom);
     const days = calculateDays(item.start, item.end);
-    const itemVisualEnd = itemOffset + days * WIDTH_PER_DAY;
+    const itemVisualEnd = itemOffset + days * WIDTH_PER_DAY * zoom;
 
     for (let laneIndex = 0; laneIndex < lanes.length; laneIndex++) {
       if (itemOffset >= laneMaxEndOffset[laneIndex]) {
